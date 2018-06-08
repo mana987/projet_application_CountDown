@@ -8,9 +8,11 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 })
 export class WelcomePage {
 
+  database : SQLiteObject;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private sqlite: SQLite) {
     platform.ready().then(() => {
-    
+
     });
   }
 
@@ -18,21 +20,27 @@ export class WelcomePage {
     console.log('ionViewDidLoad WelcomePage');
   }
 
-  initDb(){
+    // Initialisation de la BD
+
+  initDb() {
     this.sqlite.create({
       name: 'data.db',
       location: 'default'
     })
       .then((db: SQLiteObject) => {
-    
-    
-        db.executeSql('create table danceMoves(name VARCHAR(32))', {})
-          .then(() => console.log('Executed SQL'))
-          .catch(e => console.log(e));
-    
-    
+        this.database = db;
+        this.createNumberTable();
       })
       .catch(e => console.log(e));
+  }
+
+    // Création de la table
+    
+  createNumberTable(): any {
+    this.database.executeSql('CREATE TABLE IF NO EXIST number (id INTEGER PRIMARY KEY, numb INTEGER', {})
+      .then(() => console.log('Executed SQL'))
+      .catch(e => console.log(e));
+
   }
 
 }
