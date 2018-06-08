@@ -1,0 +1,8 @@
+{
+  "name": "count_down",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
